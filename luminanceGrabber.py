@@ -49,10 +49,6 @@ def processPngImages(folderPath):
 
         luminance = [pixel for pixel in pixels]
 
-        # for pixel in pixels:
-        #     lum = pixel
-        #     luminance.append(lum)
-
         baseName, _ = os.path.splitext(pngFile)
         outputFile = os.path.join(folderPath, baseName + "_luminance.txt")
 
@@ -125,13 +121,12 @@ def graph(lum_data, wavelengths):
 
 
 def main():
-    folderPath = userInterface()
     # graph(userInterface()) or graph(processPngImages(FOLDER PATH HERE))
 
     #Each image needs to associate with a specific wavelength btw
     wavelengths = [400,450,500,550] #We will have to modify this based on our ACTUAL wavelengths
 
-    lum_data = processPngImages(folderPath)
+    lum_data = userInterface()
 
     graph(lum_data,wavelengths)
 
