@@ -1,10 +1,4 @@
-###Last Updated: 3/4/2025
-"""Changes:
-Lowkey we should make a github repo for the project just so we can see changes better and hardware and software have a better idea
-of what each other are doing
-Fixed/Removed some unnecesary pieces of code/mistakes
-Set up the function to do returns (userInterface can be removed whenever but I like having it around for testing cases rn)
-"""
+###Last Updated: 3/17/2025
 
 import os
 from PIL import Image
@@ -99,12 +93,13 @@ def userInterface():
     return processPngImages(folderPath)
 
 
-
 def graph(lum_data, wavelengths):
-    incident_light = 255 #Placeholder number
+    incident_light = 255  # Placeholder number
 
-    #np.clip so we don't accidentally get log(0)
-    reflectance_imgs = [np.clip(image / incident_light, 1e-23, 1.0) for image in lum_data] #normalize intensity
+    # np.clip so we don't accidentally get log(0)
+    reflectance_imgs = [
+        np.clip(image / incident_light, 1e-23, 1.0) for image in lum_data
+    ]  # normalize intensity
 
     reflectance_array = np.array(reflectance_imgs)
 
@@ -112,7 +107,7 @@ def graph(lum_data, wavelengths):
 
     avg_abs = np.mean(absorbance_imgs, axis=0)
 
-    plt.figure(figsize=(8,6)) #default, can change later
+    plt.figure(figsize=(8, 6))  # default, can change later
     plt.plot(wavelengths, avg_abs)
     plt.title("Absorbance vs Wavelength")
     plt.xlabel("Wavelength (nm)")
@@ -123,12 +118,17 @@ def graph(lum_data, wavelengths):
 def main():
     # graph(userInterface()) or graph(processPngImages(FOLDER PATH HERE))
 
-    #Each image needs to associate with a specific wavelength btw
-    wavelengths = [400,450,500,550] #We will have to modify this based on our ACTUAL wavelengths
+    # Each image needs to associate with a specific wavelength btw
+    wavelengths = [
+        400,
+        450,
+        500,
+        550,
+    ]  # We will have to modify this based on our ACTUAL wavelengths
 
     lum_data = userInterface()
 
-    graph(lum_data,wavelengths)
+    graph(lum_data, wavelengths)
 
 
 if __name__ == "__main__":
