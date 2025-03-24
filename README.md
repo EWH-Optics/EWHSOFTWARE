@@ -1,6 +1,6 @@
-#EWH Software
+# EWH Software
 
-##Python Dependencies
+## Python Dependencies
 
 ```sh
 pip install matplotlib
