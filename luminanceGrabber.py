@@ -1,5 +1,3 @@
-###Last Updated: 3/17/2025
-
 import os
 from PIL import Image
 import matplotlib.pyplot as plt
@@ -98,14 +96,14 @@ def graph(lum_data, wavelengths):
 
     # np.clip so we don't accidentally get log(0)
     reflectance_imgs = [
-        np.clip(image / incident_light, 1e-23, 1.0) for image in lum_data
+        np.clip(np.array(image) / incident_light, 1e-23, 1.0) for image in lum_data
     ]  # normalize intensity
 
     reflectance_array = np.array(reflectance_imgs)
 
     absorbance_imgs = -np.log10(reflectance_array)
 
-    avg_abs = np.mean(absorbance_imgs, axis=0)
+    avg_abs = np.mean(absorbance_imgs, axis=1)
 
     plt.figure(figsize=(8, 6))  # default, can change later
     plt.plot(wavelengths, avg_abs)
