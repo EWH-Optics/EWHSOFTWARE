@@ -118,10 +118,13 @@ def main():
 
     # Each image needs to associate with a specific wavelength btw
     wavelengths = [
-        400,
-        450,
-        500,
-        550,
+        405,  # Purple
+        436,  # Blue
+        480,  # Light Blue
+        530,  # Green
+        550,  # Light Green/Yellow
+        580,  # Yellow
+        605,  # Orange
     ]  # We will have to modify this based on our ACTUAL wavelengths
 
     lum_data = userInterface()
