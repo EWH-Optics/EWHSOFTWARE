@@ -9,7 +9,7 @@ pip install pillow
 ```
 
 ## Usage
-Useing 
+Using 
 ```sh
 python luminanceGrabber.py
 ```
