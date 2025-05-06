@@ -2,6 +2,7 @@ import os
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
 
 
 def listSubfolders(directory):
@@ -99,6 +100,10 @@ def graph(lum_data, wavelengths):
         np.clip(np.array(image) / incident_light, 1e-23, 1.0) for image in lum_data
     ]  # normalize intensity
 
+    if len(reflectance_imgs) != 7:
+        print("Expected 7 Images recived:" + str(len(reflectance_imgs)) + " images")
+        sys.exit()
+
     reflectance_array = np.array(reflectance_imgs)
 
     absorbance_imgs = -np.log10(reflectance_array)
@@ -113,7 +118,7 @@ def graph(lum_data, wavelengths):
     plt.show()
 
 
-def main():
+def main(folderPath=None):
     # graph(userInterface()) or graph(processPngImages(FOLDER PATH HERE))
 
     # Each image needs to associate with a specific wavelength btw
@@ -127,9 +132,22 @@ def main():
         605,  # Orange
     ]  # We will have to modify this based on our ACTUAL wavelengths
 
-    lum_data = userInterface()
+    use_interface = True
+    folderPath = None
 
-    graph(lum_data, wavelengths)
+    if len(sys.argv) > 1:
+        arg = sys.argv[1].lower()
+        if arg == "fast":
+            use_interface = False
+            folderPath = sys.argv[2] if len(sys.argv) > 2 else os.getcwd()
+
+    if use_interface:
+        lum_data = userInterface()
+    else:
+        lum_data = processPngImages(folderPath)
+
+    if lum_data:
+        graph(lum_data, wavelengths)
 
 
 if __name__ == "__main__":
